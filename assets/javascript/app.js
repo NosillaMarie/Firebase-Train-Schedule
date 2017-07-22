@@ -83,18 +83,29 @@ $(document).ready(function () {
         console.log(trnFrequency);
 
         // Prettify the train start
-        var trainTimePretty = moment.unix(trnTime).format("HH:mm A");
+        var trainTimePretty = moment.unix(fstTrnTime).format("HH:mm A");
 
         console.log(trainTimePretty);
 
-        // Calculate the months worked using hardcore math
-        // To calculate the months worked
-//        var nextTrain = moment().diff(moment.unix(fstTrnTime, "X"), "HH:mm A");
-//        console.log(nextTrain);
-//        
-//          var nextTrainPretty = moment.unix(nextTrain).format("HH:mm A");
+        var diffTime = moment().diff(moment(firstTrainTime), "minutes");
         
-        console.log(nextTrainPretty);
+//        console.log(diffTime);
+        
+        var tRemainder = diffTime % trnFrequency;
+//        console.log(trnFrequency);
+//        console.log(tRemainder);
+        
+        var minutesTillTrain = trnFrequency - tRemainder;
+        console.log(minutesTillTrain);
+        
+    
+        var nextTrain = moment().add(minutesTillTrain, "minutes");
+        console.log(moment(nextTrain).format("HH:mm A"));
+        
+        
+        //add information to the table
+        
+        $("#train-table > tbody").append("<tr><td>" + trnName + "</td><td>" + trnDestination + "</td><td>" + trnFrequency + "</td><td>" + trainTimePretty + "</td><td>" + minutesTillTrain + "</td></tr>");
+        
     })
-
 })
