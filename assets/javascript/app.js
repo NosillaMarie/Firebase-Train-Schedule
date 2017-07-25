@@ -55,8 +55,8 @@ $(document).ready(function () {
         console.log(firstTrainTime);
         console.log(frequency);
 
-        //alert
-        alert("Train Added to Schedule.");
+        //alert try change to modal
+//        alert("Train Added to Schedule.");
 
         //Clear form fields
         $("#trainName").val("");
@@ -105,7 +105,8 @@ $(document).ready(function () {
         
         //add information to the table
         
-        $("#train-table > tbody").append("<tr><td>" + trnName + "</td><td>" + trnDestination + "</td><td>" + trnFrequency + "</td><td>" + trainTimePretty + "</td><td>" + minutesTillTrain + "</td></tr>");
+        $(".table > tbody").append("<tr><td>" + trnName + "</td><td>" + trnDestination + "</td><td>" + trnFrequency + "</td><td>" + trainTimePretty + "</td><td>" + minutesTillTrain + "</td></tr>");
+        
         
     })
 })

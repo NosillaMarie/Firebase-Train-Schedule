@@ -58,7 +58,7 @@ body {
                         </h3>
                     </div>
                     <div class="panel-body table-responsive">
-                        <table id="train-table">
+                        <table class="table">
                             <thead>
                                 <th class="text-center">Train</th>
                                 <th class="text-center">Destination</th>
@@ -108,7 +108,30 @@ body {
                                 <label for="frequency">Frequency</label>
                                 <input type="text" class="form-control" id="frequency" placeholder="Train Frequency">
                             </div>
-                            <button type="submit" class="btn submit">Submit</button>
+<!--                            <button type="submit" class="btn submit">Submit</button>-->
+                       <!-- Trigger the modal with a button -->
+<button type="submit" class="btn submit" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Your Train has Been Added!</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
                         </form>
                     </div>
                 </div>
