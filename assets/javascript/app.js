@@ -1,10 +1,5 @@
 $(document).ready(function () {
 
-    //the variables
-    //    var trainName;
-    //    var destination;
-    //    var firstTrain;
-    //    var frequency;
     var currentTime = moment();
 
     //Firbase initializer for the database
@@ -41,8 +36,8 @@ $(document).ready(function () {
         console.log(firstTrainTime);
 
         currentTime = moment().format("X");
-        
-  var divArray = [
+
+        var divArray = [
     $("#trainName"),
     $("#destination"),
     $("#firstTrainTime"),
@@ -50,40 +45,37 @@ $(document).ready(function () {
   ]
 
 
-  if (trainName != "" && destination != "" && firstTrainTime != "" && frequency != "") {
-      
-      alert("Your Train has been added!");
+        if (trainName != "" && destination != "" && firstTrainTime != "" && frequency != "") {
 
-        console.log(currentTime);
-        database.ref().push({
-            trainName: trainName,
-            destination: destination,
-            firstTrainTime: firstTrainTime,
-            frequency: frequency
-        });
-      
-    for (i = 0; i < divArray.length; i++) {
-      divArray[i].parent().css("color", "black");
-    }
+            alert("Your Train has been added!");
 
-    $("#trainName").val("");
-    $("#destination").val("");
-    $("#firstTrainName").val("");
-    $("#frequency").val("");
+            console.log(currentTime);
+            database.ref().push({
+                trainName: trainName,
+                destination: destination,
+                firstTrainTime: firstTrainTime,
+                frequency: frequency
+            });
 
-//error handling 
-  } else {
-    alert("You are missing data!");
+            for (i = 0; i < divArray.length; i++) {
+                divArray[i].parent().css("color", "black");
+            }
+//clear field values after submit
+            $("#trainName").val("");
+            $("#destination").val("");
+            $("#firstTrainName").val("");
+            $("#frequency").val("");
 
-    for (i = 0; i < divArray.length; i++) {
-      if (divArray[i].val() == "") {
-        divArray[i].parent().css("color", "red");
-      }
-    }
-  }
-  
-        //alert try change to modal
-//        alert("Train Added to Schedule.");
+            //error handling 
+        } else {
+            alert("You are missing data!");
+
+            for (i = 0; i < divArray.length; i++) {
+                if (divArray[i].val() == "") {
+                    divArray[i].parent().css("color", "red");
+                }
+            }
+        }
     });
 
     database.ref().on("child_added", function (childSnapshot, prevChildKey) {
@@ -96,32 +88,33 @@ $(document).ready(function () {
         var fstTrnTime = childSnapshot.val().firstTrainTime;
         var trnFrequency = childSnapshot.val().frequency;
 
-        
-        // Prettify the train start
-        var trainTimePretty = moment.unix(fstTrnTime).format("HH:mm A");
 
-        console.log(trainTimePretty);
+        // Prettify the train start
+//        var trainTimePretty = moment.unix(fstTrnTime).format("HH:mm A");
+
+//        console.log(trainTimePretty);
+        
 
         var diffTime = moment().diff(moment(firstTrainTime), "minutes");
-        
-//        console.log(diffTime);
-        
+
+
+        //
         var tRemainder = diffTime % trnFrequency;
-//        console.log(trnFrequency);
-//        console.log(tRemainder);
-        
+
+
+        //how many minutes till the next train
         var minutesTillTrain = trnFrequency - tRemainder;
         console.log(minutesTillTrain);
-        
-    
-        var nextTrain = moment().add(minutesTillTrain, "minutes");
-        console.log(moment(nextTrain).format("HH:mm A"));
-        
-        
+
+
+        var nextTrain = moment().add(minutesTillTrain, "HH:mm A");
+        //Next train arrival
+        var theNextTrain = moment(nextTrain).format("HH:mm A");
+
+
         //add information to the table
-        
-        $(".table > tbody").append("<tr><td>" + trnName + "</td><td>" + trnDestination + "</td><td>" + trnFrequency + "</td><td>" + trainTimePretty + "</td><td>" + minutesTillTrain + "</td></tr>");
-        
-        
+
+        $(".table > tbody").append("<tr><td>" + trnName + "</td><td>" + trnDestination + "</td><td>" + trnFrequency + "</td><td>" + theNextTrain + "</td><td>" + minutesTillTrain + "</td></tr>");
+
     })
 })
