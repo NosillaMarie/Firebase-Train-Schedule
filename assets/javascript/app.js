@@ -41,6 +41,15 @@ $(document).ready(function () {
         console.log(firstTrainTime);
 
         currentTime = moment().format("X");
+  var divArray = [
+    $("#trainName"),
+    $("#destination"),
+    $("#firstTrainTime"),
+    $("#frequency")
+  ]
+
+
+  if (trainName != "" && destination != "" && firstTrainTime != "" && frequency != "") {
 
         console.log(currentTime);
         database.ref().push({
@@ -49,12 +58,27 @@ $(document).ready(function () {
             firstTrainTime: firstTrainTime,
             frequency: frequency
         });
-        // Logs everything to console
-        console.log(trainName);
-        console.log(destination);
-        console.log(firstTrainTime);
-        console.log(frequency);
+      
+    for (i = 0; i < divArray.length; i++) {
+      divArray[i].parent().css("color", "black");
+    }
 
+    $("#trainName").val("");
+    $("#destination").val("");
+    $("#firstTrainName").val("");
+    $("#frequency").val("");
+
+
+  } else {
+    alert("You are missing data!");
+
+    for (i = 0; i < divArray.length; i++) {
+      if (divArray[i].val() == "") {
+        divArray[i].parent().css("color", "red");
+      }
+    }
+  }
+  
         //alert try change to modal
 //        alert("Train Added to Schedule.");
 
@@ -76,12 +100,7 @@ $(document).ready(function () {
         var fstTrnTime = childSnapshot.val().firstTrainTime;
         var trnFrequency = childSnapshot.val().frequency;
 
-        // Train Info
-        console.log(trnName);
-        console.log(trnDestination);
-        console.log(fstTrnTime);
-        console.log(trnFrequency);
-
+        
         // Prettify the train start
         var trainTimePretty = moment.unix(fstTrnTime).format("HH:mm A");
 
