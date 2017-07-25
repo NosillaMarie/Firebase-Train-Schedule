@@ -41,6 +41,7 @@ $(document).ready(function () {
         console.log(firstTrainTime);
 
         currentTime = moment().format("X");
+        
   var divArray = [
     $("#trainName"),
     $("#destination"),
@@ -50,6 +51,8 @@ $(document).ready(function () {
 
 
   if (trainName != "" && destination != "" && firstTrainTime != "" && frequency != "") {
+      
+      alert("Your Train has been added!");
 
         console.log(currentTime);
         database.ref().push({
@@ -68,7 +71,7 @@ $(document).ready(function () {
     $("#firstTrainName").val("");
     $("#frequency").val("");
 
-
+//error handling 
   } else {
     alert("You are missing data!");
 
@@ -81,13 +84,6 @@ $(document).ready(function () {
   
         //alert try change to modal
 //        alert("Train Added to Schedule.");
-
-        //Clear form fields
-        $("#trainName").val("");
-        $("#destination").val("");
-        $("#firstTrainTime").val("");
-        $("#frequency").val("");
-
     });
 
     database.ref().on("child_added", function (childSnapshot, prevChildKey) {
